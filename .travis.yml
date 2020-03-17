@@ -9,8 +9,8 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-7.4
-          env: COMPILER=g++-7.4
+            - g++-4.7
+          env: COMPILER=g++-4.7
     - os: linux
       addons:
         apt:
@@ -33,10 +33,11 @@ install:
 script:
 - cppcheck --quiet --error-exitcode=1 .
 - mkdir build && cd build
-- cmake -DCMAKE_CXX_COMPILER=$COMPILER -DCMAKE_BUILD_TYPE=Coverage .. && make -j4
+- cmake -DCMAKE_CXX_COMPILER=$COMPILER .. && make -j4
 - cd src
-- ./travis_test
+- echo 3 > temp.txt
+- ./travis_sample < temp.txt
+- rm temp.txt
 - cd ../test
-- ./example_test
-- cd ..
-- make coverage
+- ./unit
+
